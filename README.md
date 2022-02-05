@@ -8,10 +8,10 @@ This is a personal project aiming to identify the differences between the human 
 
 ## 2. Reproducing Previous Studies
 In advance, we start by reproducing existing studies to get a grip of workflow. The Gene Expression Omnibus (GEO) provides data produced by sequencing and microarray. Data deposited in the database are categorized among the following hierarchy:
-- Platform: 
-- DataSets:
-- Series:
-- Samples: 
+- Platform: The method of generating data (ex Illumina HiSeq 4000)
+- DataSets: A refined version of Series that is a set of comparable Samples
+- Series: The collection of Samples that describe a whole study. Our focus.
+- Samples: The sample source, method of analysis. The lowest of the hierarchy.
 
 Here we use data from Series since it provides the raw data from a complete study. We choose a study that analyzes development differences between human and mouse each.
 
@@ -21,13 +21,26 @@ Darmanis, et al(2015) is deposited as [GSE67835](https://www.ncbi.nlm.nih.gov/ge
 
 [GSM1657871_1772078217.C03.csv](https://github.com/Deserav/mouse-human-develop/files/7948785/GSM1657871_1772078217.C03.csv)
 
-In R, we implement all the CSV files in to one expression matrix by for looping all file names and full join each file. Then make the expression matrix as a single Seurat object. At this point, the overall gene expression matrix is saved as a Seurat object. Below is the file of the whole experssion matrix.
+In R, we implement all the CSV files in to one expression matrix by for looping all file names and full join each file. Read the file again and we have the expression matrix. We found that this study was published before Seurat was developed, so we will do downstream analysis without Seurat.
 
 [human_exp.csv](https://github.com/Deserav/mouse-human-develop/files/7955447/human_exp.csv)
 
-Note that the last three rows are named: `no_feature`, `ambiguous` and `alignment_not_unique`. This seems to be in the data because HTSeq was used to convert reads to counts. We therefore remove the last three rows, and then implement as Seurat object.
+Note that the last three rows are named: `no_feature`, `ambiguous` and `alignment_not_unique`. This seems to be in the data because HTSeq was used to convert reads to counts. We therefore remove the last three rows.
 
 In case of the reference genome, the authors of the study used the hg19 with the STAR alignment method. However, the gene names that come from the file name are different to that of hg19. It is assumed that the actual names come from HGNC (HUGO Gene Nomenclature Committee).
 
 #### 2.1.2 Visualize and Data Processing
+Data processing is undergone after loading dataset. The expression matrix is normalized. The matrix entries are converted to CPM(entries divided by column sum times 10^6) and then plugged into log10(1+p).
+
+#### 2.1.3 Plotting
+We now try to replicate the plots of the paper. Figure S1 shows histograms of total number of reads, fraction of mapped reads, intron/exon ratio, and gene body coverage. Only the total number of reads was replicated because all the data we have is the count matrix.
+![reads_per_cell](https://user-images.githubusercontent.com/88135502/152650420-3c312f6f-fb7a-4fc9-aedd-fd89c6204a43.png)
+
+For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne package, and model-based hierarchical clustering by mclust package. The goal is to identify 10 clusters by an unbiased method. In other words, we want 10 clusters without any genetic information. However, it is found that the tsne package does not contain a ViSNE function. Thus, tSNE is performed after arcsine transformation. Unfortunately, the best we could do was getting 8 clusters, and the plot is the following (Click plot to zoom)
+
+| Figure 1A | Figure S2 Left | Figure S2 Right|
+|-----------|----------------|----------------|
+|![unbiased_clustering](https://user-images.githubusercontent.com/88135502/152650953-19434c73-1bfd-4476-832d-51e679edb6c5.png) |  ![BIC](https://user-images.githubusercontent.com/88135502/152650962-65f0f946-c141-492f-94cf-7c5daea78208.png) | ![uncertainty](https://user-images.githubusercontent.com/88135502/152650968-a7186ed1-3281-4f6a-a3e2-729c90bed994.png)|
+
+The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
 
