@@ -44,3 +44,13 @@ For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne p
 
 The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
 
+### Human Study 2
+#### Load Data
+Zhong, et al (2018) is deposited at [GSE104276](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104276). Download the whole data by `getGEOSuppFiles` function, and we have two TAR files and one GZ file. The TAR files contain UMI count and UMI TPM respectively for all 2394 cells. On the other hand, the GZ file contains 79 TXT files of TPM expression matrix for each sample. Since there may be a batch effect, we decided to use the GZ file. Use a `for` loop to read each file into a `Seurat` object and `merge` it altogether.
+The confounding part of this process is that the row names of each file are not uniform. 
+
+[GSM2884059_GW8_PFC1.UMI_TPM_no_ERCC.txt](https://github.com/Deserav/mouse-human-develop/files/8010410/GSM2884059_GW8_PFC1.UMI_TPM_no_ERCC.txt)
+
+[GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt](https://github.com/Deserav/mouse-human-develop/files/8010409/GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt)
+
+As shown in the two files, 
