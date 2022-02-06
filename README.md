@@ -53,4 +53,4 @@ The confounding part of this process is that the row names of each file are not 
 
 [GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt](https://github.com/Deserav/mouse-human-develop/files/8010409/GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt)
 
-As shown in the two files, 
+The first file has "Gene" in the row names, while the second one does not. The `for` loop for making the `Seurat` object should consider these differences. If not the last column will be omitted.
