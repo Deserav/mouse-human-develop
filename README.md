@@ -21,7 +21,7 @@ Darmanis, et al(2015) is deposited as [GSE67835](https://www.ncbi.nlm.nih.gov/ge
 
 [GSM1657871_1772078217.C03.csv](https://github.com/Deserav/mouse-human-develop/files/7948785/GSM1657871_1772078217.C03.csv)
 
-In R, we implement all the CSV files in to one expression matrix by for looping all file names and full join each file. Read the file again and we have the expression matrix. We found that this study was published before Seurat was developed, so we will do downstream analysis without Seurat.
+In R, we implement all the CSV files in to one expression matrix by `for` looping all file names and `full_join` each file. Read the file again and we have the expression matrix. We found that this study was published before Seurat was developed, so we will do downstream analysis without Seurat.
 
 [human_exp.csv](https://github.com/Deserav/mouse-human-develop/files/7955447/human_exp.csv)
 
@@ -29,8 +29,8 @@ Note that the last three rows are named: `no_feature`, `ambiguous` and `alignmen
 
 In case of the reference genome, the authors of the study used the hg19 with the STAR alignment method. However, the gene names that come from the file name are different to that of hg19. It is assumed that the actual names come from HGNC (HUGO Gene Nomenclature Committee).
 
-#### 2.1.2 Visualize and Data Processing
-Data processing is undergone after loading dataset. The expression matrix is normalized. The matrix entries are converted to CPM(entries divided by column sum times 10^6) and then plugged into log10(1+p).
+#### 2.1.2 Data Processing
+Data processing is undergone after loading dataset. The expression matrix should be normalized for downstream analysis. Matrix entries are converted to CPM(entries divided by column sum times 10^6) and then plugged into log10(1+p).
 
 #### 2.1.3 Plotting
 We now try to replicate the plots of the paper. Figure S1 shows histograms of total number of reads, fraction of mapped reads, intron/exon ratio, and gene body coverage. Only the total number of reads was replicated because all the data we have is the count matrix.
@@ -44,9 +44,9 @@ For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne p
 
 The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
 
-### Human Study 2
-#### Load Data
-Zhong, et al (2018) is deposited at [GSE104276](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104276). Download the whole data by `getGEOSuppFiles` function, and we have two TAR files and one GZ file. The TAR files contain UMI count and UMI TPM respectively for all 2394 cells. On the other hand, the GZ file contains 79 TXT files of TPM expression matrix for each sample. Since there may be a batch effect, we decided to use the GZ file. Use a `for` loop to read each file into a `Seurat` object and `merge` it altogether.
+### 2.2 Human Study 2
+#### 2.2.1 Load Data
+Zhong, et al (2018) is deposited at [GSE104276](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE104276). Download the whole data by `getGEOSuppFiles` function, and we have two TAR files and one GZ file. The TAR files store a single XLSX file that contain UMI count and UMI TPM respectively for all 2394 cells. On the other hand, the GZ file contains 39 TXT files of TPM expression matrix for each GEO Sample (GSM). Since there may be a batch effect, we decided to use the GZ file. Use a `for` loop to read each file into a `Seurat` object and `merge` it altogether.
 The confounding part of this process is that the row names of each file are not uniform. 
 
 [GSM2884059_GW8_PFC1.UMI_TPM_no_ERCC.txt](https://github.com/Deserav/mouse-human-develop/files/8010410/GSM2884059_GW8_PFC1.UMI_TPM_no_ERCC.txt)
@@ -54,3 +54,10 @@ The confounding part of this process is that the row names of each file are not 
 [GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt](https://github.com/Deserav/mouse-human-develop/files/8010409/GSM2970391_GW23_PFC2_1.UMI_TPM_no_ERCC.txt)
 
 The first file has "Gene" in the row names, while the second one does not. The `for` loop for making the `Seurat` object should consider these differences. If not the last column will be omitted.
+
+This is a common problem when reading files, and as discussed in [this link](https://www.programmingr.com/r-error-messages/more-columns-than-column-names/), we ditch the `tidyverse` method and loop `read.csv`. Create 39 Seurat objects, and merge all of them to one and perform downstream analysis.
+
+#### 2.2.2 Data Processing
+The initial data is given by a TPM matrix. The developers of Seurat mentioned that raw expression matrix should be normalized via `NormalizeData` function, while a TPM input should not, as discussed in this [QnA](https://github.com/satijalab/seurat/issues/668). Therefore, the data processing step is skipped.
+
+#### 2.2.3 Plotting.
