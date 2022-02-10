@@ -58,6 +58,7 @@ The first file has "Gene" in the row names, while the second one does not. The `
 This is a common problem when reading files, and as discussed in [this link](https://www.programmingr.com/r-error-messages/more-columns-than-column-names/), we ditch the `tidyverse` method and loop `read.csv`. Create 39 Seurat objects, and merge all of them to one and perform downstream analysis.
 
 #### 2.2.2 Data Processing
-The initial data is given by a TPM matrix. The developers of Seurat mentioned that raw expression matrix should be normalized via `NormalizeData` function, while a TPM input should not, as discussed in this [QnA](https://github.com/satijalab/seurat/issues/668). Therefore, the data processing step is skipped.
+The initial data is given by a TPM matrix. The developers of Seurat mentioned that raw expression matrix should be normalized via `NormalizeData` function, while a TPM input should not, as discussed in this [QnA](https://github.com/satijalab/seurat/issues/668). Instead, the researchers used a custom normalization method log((TM/10)+1). So we use the `NormalizeData` function setting  `LogNormallize` with scale factor 10^5.
 
-#### 2.2.3 Plotting.
+#### 2.2.3 Plotting
+In prior, we subset the data by choosing the cells that express at least 1000 genes, and genes that are expressed by at least 3 cells. The general Seurat workflow is applied with the operation of `FindVariableFeatures`, `ScaleData`, `RunPCA`, `FindNeighbors`, `FindClusters`. 
