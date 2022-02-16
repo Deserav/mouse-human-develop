@@ -71,8 +71,8 @@ The problem is that first of all, it seemed that a batch effect occurred, becaus
 - Removing cluster 0 (expressed hemoglobin genes found by `FindAllMarkers` function) and operating the generel workflow does not show meaningful results. Plot made by this process is shown here. The plot 3 that the clustering is generally done better, but in plot 2 we can see that still a significant amount of hemoglobin genes are being expressed, which was not filtered by cluster 0. 
 
 |1|2|3|
-|![plot8_plot9_tsne_plot_hemo_removed_res 0 2](https://user-images.githubusercontent.com/88135502/154215691-04d996ea-19ea-4fd5-bae7-48fce2d66377.png)|![plot10_feature_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215723-286cad22-4ed9-4e70-8e4a-34b750a9b8e0.png)|![plot12_marker_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215749-2d943854-9ce2-4408-a6a4-344919a7d2d1.png)|
 |-----------|----------------|----------------|
+|![plot8_plot9_tsne_plot_hemo_removed_res 0 2](https://user-images.githubusercontent.com/88135502/154215691-04d996ea-19ea-4fd5-bae7-48fce2d66377.png)|![plot10_feature_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215723-286cad22-4ed9-4e70-8e4a-34b750a9b8e0.png)|![plot12_marker_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215749-2d943854-9ce2-4408-a6a4-344919a7d2d1.png)|
 
 
 #### 2.2.4 Troubleshooting
