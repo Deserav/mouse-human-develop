@@ -67,5 +67,5 @@ In prior, we subset the data by choosing the cells that express at least 1000 ge
 |-----------|----------------|----------------|
 |![plot2_plot3_tsne_plot_res 0 2](https://user-images.githubusercontent.com/88135502/154430513-9d4cfebc-210b-4044-8d95-88da6ab40004.png)|![plot4_featureplot_res 0 2](https://user-images.githubusercontent.com/88135502/154430664-5103c390-a613-4b2c-941c-7abb1d51c8a5.png)|![plot5_violin_res 0 2](https://user-images.githubusercontent.com/88135502/154430563-c23bb087-698a-4a8e-a3cd-59cf31189e54.png)|
 
-From cluster 4 on the left of plot 1, it consists of 78 cells, and it is unchanged regardless of the resolution. We remove these out and then run the general process again.
+From cluster 4 on the left of plot 1, it consists of 78 cells, and it is unchanged from resolutions 0.2, 0.3, 0.4. We remove these out and then run the general process again.
 
