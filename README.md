@@ -61,20 +61,11 @@ This is a common problem when reading files, and as discussed in [this link](htt
 The initial data is given by a TPM matrix. The developers of Seurat mentioned that raw expression matrix should be normalized via `NormalizeData` function, while a TPM input should not, as discussed in this [QnA](https://github.com/satijalab/seurat/issues/668). Instead, the researchers used a custom normalization method log((TM/10)+1). So we use the `NormalizeData` function setting  `LogNormallize` with scale factor 10^5.
 
 #### 2.2.3 Plotting
-In prior, we subset the data by choosing the cells that express at least 1000 genes, and genes that are expressed by at least 3 cells. The general Seurat workflow is applied with the operation of `FindVariableFeatures`, `ScaleData`, `RunPCA`, `FindNeighbors`, `FindClusters`, 'RunTSNE` `DimPlot`(this is called 'general workflow' from now on). From here the plot is generate as the following(click plot to zoom). Resolution of `FindClusters` was set to 0.2 such that the output generates six clustser, as in the paper.
-
-|![plot2_plot3_tsne_plot_res 0 2](https://user-images.githubusercontent.com/88135502/154212301-7ee80b0c-28fc-47a4-bac1-18ea12c9a241.png)|![plot4_feature_plot_res 0 2](https://user-images.githubusercontent.com/88135502/154212320-d5c9f9ae-f888-490b-92bd-7bbbaa04933a.png)|![plot5_identity_plot_res 0 2](https://user-images.githubusercontent.com/88135502/154212348-53314632-dbc5-49a3-ab85-5f6f34ceaa4c.png)|
-|-----------|----------------|----------------|
-
-The problem is that first of all, it seemed that a batch effect occurred, because the clusters of the left plot seems similar. Second, hemoglobin genes were expressed throughout the plot, regardless of the clusters. Endeavor of solving these problems by normal means were futile.
-- Integrating the data via `SelectIntegrationFeatures` did not work because some samples such as GW08 had too little cells (23 cells)
-- Removing cluster 0 (expressed hemoglobin genes found by `FindAllMarkers` function) and operating the generel workflow does not show meaningful results. Plot made by this process is shown here. The plot 3 that the clustering is generally done better, but in plot 2 we can see that still a significant amount of hemoglobin genes are being expressed, which was not filtered by cluster 0. 
+In prior, we subset the data by choosing the cells that express at least 1000 genes, and genes that have at least 3 cells with normalized expression greater than 1. The general Seurat workflow is applied with the operation of `FindVariableFeatures`, `ScaleData`, `RunPCA`, `FindNeighbors`, `FindClusters`, `RunTSNE`, `DimPlot`(this is called 'general workflow' from now on). From here the plot is generate as the following(click plot to zoom). Resolution of `FindClusters` was set to 0.2 such that the output generates six clustsers, as in the paper.
 
 |1|2|3|
 |-----------|----------------|----------------|
-|![plot8_plot9_tsne_plot_hemo_removed_res 0 2](https://user-images.githubusercontent.com/88135502/154215691-04d996ea-19ea-4fd5-bae7-48fce2d66377.png)|![plot10_feature_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215723-286cad22-4ed9-4e70-8e4a-34b750a9b8e0.png)|![plot12_marker_plot_hemo_removed res 0 2](https://user-images.githubusercontent.com/88135502/154215749-2d943854-9ce2-4408-a6a4-344919a7d2d1.png)|
+|![plot2_plot3_tsne_plot_res 0 2](https://user-images.githubusercontent.com/88135502/154430513-9d4cfebc-210b-4044-8d95-88da6ab40004.png)|![plot4_featureplot_res 0 2](https://user-images.githubusercontent.com/88135502/154430664-5103c390-a613-4b2c-941c-7abb1d51c8a5.png)|![plot5_violin_res 0 2](https://user-images.githubusercontent.com/88135502/154430563-c23bb087-698a-4a8e-a3cd-59cf31189e54.png)|
 
-
-#### 2.2.4 Troubleshooting
-
+From cluster 4 on the left of plot 1, it consists of 78 cells, and it is unchanged regardless of the resolution. We remove these out and then run the general process again.
 
