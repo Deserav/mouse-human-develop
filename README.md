@@ -75,7 +75,7 @@ The data is also subsetted by choosing the cells that express at least 1000 gene
 
 The researchers defined hemoglobin genes as HBA1, HBA2, HBB, HBD, HBE1, HBG1, HBG2, HBM, HBQ1, and HBZ. In dimensions low or high, most of the hemoglobin genes are activated by all clusters(plot 4, plot5), which made it confounding. Thus as in plot 2, most of the hemoglobin genes are found at PC5, so we use dimension 5. We use a smaller dimension as possible to pinpoint erythrocytes shown in cluster 6 of plot 5. Therefore, we remove cluster 6, which consists of 16 cells. The researchers had 2,309 cells left after this process, which means that 24 cells were removed.
 
-We apply the general workflow to the remaining Seurat object. Our goal is to identify neural progenitor cells, excitatory neurons, interneurons, oligodendrocyte progenitor cells, astrocytes, and microglia. With a total of six clusters, PAX6, NEUROD2, GAD1, PDGFRA, AQP4, and PTPRC were used as the respective markers. Here we use `dims = 1:10` to capture as much of the markers as possible (plot 6, plot 7)
+We apply the general workflow to the remaining Seurat object. Our goal is to identify neural progenitor cells(NPC), excitatory neurons, interneurons, oligodendrocyte progenitor cells(OPC), astrocytes, and microglia. With a total of six clusters, PAX6, NEUROD2, GAD1, PDGFRA, AQP4, and PTPRC were used as the respective markers. Here we use `dims = 1:10` to capture as much of the markers as possible (plot 6, plot 7)
 
 |6|7|
 |-----------|----------------|
@@ -93,3 +93,11 @@ The gene expression pattern is shown as:
 - PDGFRA: most of cluster 5
 - AQP4: part of cluster 3
 - PTPRC: most of cluster 4.
+
+Although there is some error, we therefore allocate our clusters as:
+- 0: excitatory neurons
+- 1: interneurons
+- 2: NPCs
+- 3: astrocyte
+- 4: microglia
+- 5: OPCs
