@@ -73,7 +73,7 @@ The data is also subsetted by choosing the cells that express at least 1000 gene
 |-----------|----------------|
 |![plot6_featureplot](https://user-images.githubusercontent.com/88135502/154543786-d7ce7f16-9cb5-4344-9cfc-b3fad40102cf.png)|![plot7_violin](https://user-images.githubusercontent.com/88135502/154543821-a1c029c0-67f0-479e-8bad-3241a90a8701.png)|
 
-The researchers defined hemoglobin genes as HBA1, HBA2, HBB, HBD, HBE1, HBG1, HBG2, HBM, HBQ1, and HBZ. In dimensions low or high, most of the hemoglobin genes are activated by all clusters(plot 4, plot5), which made it confounding. Thus as in plot 2, most of the hemoglobin genes are found at PC5, so we use dimension 5. We use a smaller dimension as possible to pinpoint erythrocytes shown in cluster 6 of plot 5. Therefore, we remove cluster 6, which consists of 16 cells. The researchers had 2,309 cells left after this process, which means that 24 cells were removed.
+The researchers defined hemoglobin genes as HBA1, HBA2, HBB, HBD, HBE1, HBG1, HBG2, HBM, HBQ1, and HBZ. In dimensions low or high, most of the hemoglobin genes are activated by all clusters(plot 4, plot5), which made it confounding. Thus as in plot 2, most of the hemoglobin genes are found at PC5, so we use dimension 5. We use a smaller dimension as possible to pinpoint erythrocytes shown in cluster 6 of plot 5. Therefore, we remove cluster 6, which consists of 16 cells. We now have 2,328 cells left. The researchers had 2,309 cells left after this process, which means that 24 cells were removed.
 
 We apply the general workflow to the remaining Seurat object. Our goal is to identify neural progenitor cells(NPC), excitatory neurons, interneurons, oligodendrocyte progenitor cells(OPC), astrocytes, and microglia. With a total of six clusters, PAX6, NEUROD2, GAD1, PDGFRA, AQP4, and PTPRC were used as the respective markers. Here we use `dims = 1:10` to capture as much of the markers as possible (plot 6, plot 7)
 
@@ -102,4 +102,26 @@ Although there is some error, we therefore allocate our clusters as:
 - 4: microglia
 - 5: OPCs
 
-![plot13_tsn_w_names](https://user-images.githubusercontent.com/88135502/154834305-5fa56d2b-87c8-42c9-bdde-eeae484af874.png)
+|11|12|
+|-----------|----------------|
+|![plot13_tsn_w_names](https://user-images.githubusercontent.com/88135502/154834305-5fa56d2b-87c8-42c9-bdde-eeae484af874.png)|![plot14_tsne_w_orig ident](https://user-images.githubusercontent.com/88135502/155280958-70ba5581-4041-4b8b-9806-875d5602ba92.png)|
+
+Compare our results with `orig.ident` and we can see that NPCs, excitatory neurons, interneurons are clustered in a development-dependently, as noted in the paper.
+
+#### 2.2.4 Trajectory and Pseudotime analysis 
+To elucidate the development order of the cells, trajectory and pseudotime analysis is performed by Monocle 2 and Monocle 3. A Seruat v4 object can be converted into a cell_data_set object of Monocle 3 by the `as.cell_data_set` function. To do a trajectory analysis, operate a sequence of the functions `preprocess_cds`, `reduce_dimension`, `cluster_cells`, `learn_graph`. The plot below is obtained. Note that `order_cells` is not applied, which implies that pseudotime is not yet calculated.
+
+|13|14|
+|-----------|----------------|
+|![plot15_tractory_wo_ordercell_ident](https://user-images.githubusercontent.com/88135502/155466446-43cb59d7-3ed7-47f2-bfbb-2315774d2e8e.png)|![plot16_trajectory_wo_ordercell_orig ident](https://user-images.githubusercontent.com/88135502/155466462-1c700780-26d9-4047-aa1d-085c92ff50b2.png)|
+
+Note that black circles are branch points and gray circles are leaf points. Starting from Branch 1 (cell type is unclear), there are three major pathways
+- Branch 1 -> excitatory neurons
+- Branch 1 -> NPCs -> OPCs
+- Branch 1 -> Interneurons
+
+From here we decided to operate the whole analysis from scratch by Monocle 2 because of the following
+- `plot_cell_trajectory` and `plot_complex_cell_trajectory` in Monocle 2 has no equivalent in Monocle 3
+- The researchers used Monocle 2
+- Researchers removed microglia and intneurons during pseudotime analysis, so all calculations must be undone. 
+- Hard to pinpoint starting point for psuedotime with interactive system of Monocle3 
