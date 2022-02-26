@@ -134,8 +134,13 @@ We use the `counts` of our Seurat object and transfer it to a cell_data_set obje
 
 These figures are a reprodution of Figure 1 of the paper. On figure 17, we can see that the trajetory is formed according to gestation period. GW8 to GW10 are on the top, and GW23 to GW26 are on the bottom of the trajectory. However, figure  15 shows some error. The trejectory shows that OPCs and astrocytes are formed after excitatory neurons. In other words, glial cells form subsequently of neuronal cells, according to our result. Analysis of thie erroneous result will be shown next section.
 
-Known mark genes were plotted by pseudotime to expression. The plot is shown below.
+Known mark genes were plotted by pseudotime to expression. The plot is shown below. It was done by the `plot_multiple_branches_pseudotime` function. 
 
 ![plot20_gene_psuedotime](https://user-images.githubusercontent.com/88135502/155853044-0465aaaf-920b-4453-805b-30e8046311dc.png)
 
-
+The expression pattern shown in the figure is equivalent to figure 1e except for AQP4.
+- AQP4: In our figure there is decrease of expression on neural cells, and no expression on glial cells. The original figure shows no expression on neuronal cells and increasing expresion on glial cells.
+- NEUROD2: Rapid increase of expression on neural cells, and some incerease on glial cells. Similar with our original figure. 
+- OLIG1: Slight increase of expression on glial cells. While the shape is similar to the original, the amount of increase is significantly lower.
+- PAX6: Gradual decrease of expression on both groups. Similar with our original figure. 
+- SOX2: Neuronal cells show decrease, and glial cells show increase then decrease. In the original, glial expression is relatively consistent.
