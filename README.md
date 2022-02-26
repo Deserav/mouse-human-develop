@@ -136,7 +136,7 @@ These figures are a reprodution of Figure 1 of the paper. On figure 17, we can s
 
 Known mark genes were plotted by pseudotime to expression. The plot is shown below. It was done by the `plot_multiple_branches_pseudotime` function. 
 
-![plot20_gene_psuedotime](https://user-images.githubusercontent.com/88135502/155853044-0465aaaf-920b-4453-805b-30e8046311dc.png)
+![plot20_gene_psuedotime](https://user-images.githubusercontent.com/88135502/155853989-5c1d2848-f95b-4330-9b86-88359ad9b84c.png)
 
 The expression pattern shown in the figure is equivalent to figure 1e except for AQP4.
 - AQP4: In our figure there is decrease of expression on neural cells, and no expression on glial cells. The original figure shows no expression on neuronal cells and increasing expresion on glial cells.
