@@ -128,7 +128,14 @@ From here we decided to operate the whole analysis from scratch by Monocle 2 bec
 
 We use the `counts` of our Seurat object and transfer it to a cell_data_set object by using the `newCellDataSet` function (it would be reasonable to use the normalzied data, but raw data shows better results). Then remove the microglial cells and interneurons. Microglial cellsare mesoderm-derived cells and interneurons are generated from ganglia, not the prefrontal cortex, so they are removed. Then use the marker genes found in Seurat, and use `setOrderingFilter`, `reduceDimension`, `orderCells`. Then plot the results by `plot_complex_cell_trajectory`.
 
-|15|16|18|
+|15|16|17|
 |-----------|----------------|----------------|
 |![plot17_trajectory_tree_celltype](https://user-images.githubusercontent.com/88135502/155845978-75216e89-5db1-4d96-959d-468f6495b183.png)|![plot18_trajectory_tree_states](https://user-images.githubusercontent.com/88135502/155845987-34be6ff7-cac9-495f-8c60-d35943eec0fc.png)|![plot19_trajectory_tree_orig ident](https://user-images.githubusercontent.com/88135502/155845996-66411e32-bb8a-40d1-8b42-08eae672368e.png)|
+
+These figures are a reprodution of Figure 1 of the paper. On figure 17, we can see that the trajetory is formed according to gestation period. GW8 to GW10 are on the top, and GW23 to GW26 are on the bottom of the trajectory. However, figure  15 shows some error. The trejectory shows that OPCs and astrocytes are formed after excitatory neurons. In other words, glial cells form subsequently of neuronal cells, according to our result. Analysis of thie erroneous result will be shown next section.
+
+Known mark genes were plotted by pseudotime to expression. The plot is shown below.
+
+![plot20_gene_psuedotime](https://user-images.githubusercontent.com/88135502/155853044-0465aaaf-920b-4453-805b-30e8046311dc.png)
+
 
