@@ -144,3 +144,21 @@ The expression pattern shown in the figure is equivalent to figure 1e except for
 - OLIG1: Slight increase of expression on glial cells. While the shape is similar to the original, the amount of increase is significantly lower.
 - PAX6: Gradual decrease of expression on both groups. Similar with our original figure. 
 - SOX2: Neuronal cells show decrease, and glial cells show increase then decrease. In the original, glial expression is relatively consistent.
+
+#### 2.2.5 Limitations
+As mentioned in the previous section, there were many erroneous results. It is presumed that the cause of this is the cumulation of error from each process. 
+
+**1. Initial data is given by TPM matrix.**
+Although Seurat and Monocle support TPM input, preprocessing data with such format seems confounding. We end up duplicating the normalization process. Scaling is problematic as well, since the column sum of a TPM matrix is fixed to 1M. Subsetting cells and genes can result in decrease of column sum, which holds a possibility of changing the scaled value significantly. In addition, Monocle is optimal in using count data, so using TPM data limits downstream analysis.  Functions like `plot_ordering_genes` and `plot_pc_variance_explained` do not work well on TPM data.
+
+
+**2. Normalization method is unusual.**
+The research used a custom normalization method of log((TPM/10) + 1) for each entry. Seurat and Monocle do not recommend normalization prior to data input. This made limitations to the preprocessing in both packages. This is true especially for Monocle, since it requires the user to choose the distribution of input. Monocle is optimal when negative binomial distribution is used, but TPM input forces us to use `tobit` or `gaussianff` (see [here](http://cole-trapnell-lab.github.io/monocle-release/docs/#analyzing-branches-in-single-cell-trajectories) for details)
+
+**3. Initial clustering was inaccurate.**
+Initial clustering via tSNE in Seurat did not precisely separate NPCs, astrocytes, and excitatory neurons. This affected the downstream analysis, in that eventually these cells interfered each other during trajectory analysis (figure 15). Inaccurate clustering also resulted in inability of finding the correct marker genes. The genes found by `FindAllMarkers` left out some marker features mentioned in the paper.
+
+Therefore, in further attempts, the optimal workflow would be something like:
+- Use raw counts as initial input, not normalized data (ex TPM, RPKM, CPM)
+- Use Seurat, Monocle2, Monocle3 separately since their process of transforming data is different. In addition, Monocle2 and Monocle3 have different workflow and plotting methods, so Monocle3 cannot completely replace is predecessor.
+- Precise clustering is required. Biological information of markers is essential in this step.
