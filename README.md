@@ -40,7 +40,7 @@ For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne p
 
 | Figure 1A | Figure S2 Left | Figure S2 Right|
 |-----------|----------------|----------------|
-|![plot2_3d_tsne_2 27 2022](https://user-images.githubusercontent.com/88135502/155884032-8f607d36-952b-46d8-ad1d-95afc812b956.png)|  ![BIC](https://user-images.githubusercontent.com/88135502/152650962-65f0f946-c141-492f-94cf-7c5daea78208.png) |![plot1_uncertainty_2 27 2022](https://user-images.githubusercontent.com/88135502/155884037-b7942322-6c2f-4a8a-9af6-0638d72df68e.png)|
+|![plot2_3d_tsne_2 27 2022](https://user-images.githubusercontent.com/88135502/155884032-8f607d36-952b-46d8-ad1d-95afc812b956.png)|![plot0_BIC](https://user-images.githubusercontent.com/88135502/155884479-d6a38210-c0ce-40b0-82b9-34c4b612e165.png)|![plot1_uncertainty_2 27 2022](https://user-images.githubusercontent.com/88135502/155884037-b7942322-6c2f-4a8a-9af6-0638d72df68e.png)|
 
 The paper does not exactly clearly notify how each respective graph was generated, so this was the closest we could get.
 
