@@ -36,13 +36,15 @@ Data processing is undergone after loading dataset. The expression matrix should
 We now try to replicate the plots of the paper. Figure S1 shows histograms of total number of reads, fraction of mapped reads, intron/exon ratio, and gene body coverage. Only the total number of reads was replicated because all the data we have is the count matrix.
 ![reads_per_cell](https://user-images.githubusercontent.com/88135502/152650420-3c312f6f-fb7a-4fc9-aedd-fd89c6204a43.png)
 
-For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne package, and model-based hierarchical clustering by mclust package. The goal is to identify 10 clusters by an unbiased method. In other words, we want 10 clusters without any genetic information. However, it is found that the tsne package does not contain a ViSNE function. Thus, tSNE is performed after arcsine transformation. Unfortunately, the best we could do was getting 8 clusters, and the plot is the following (Click plot to zoom)
+For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne package, and model-based hierarchical clustering by mclust package. The goal is to identify 10 clusters by an unbiased method. In other words, we want 10 clusters without any genetic information. However, it is found that the tsne package does not contain a ViSNE function. Thus, tSNE is performed after arcsine transformation. tSNE is performed by the Rtsne package. Unfortunately, the best we could do was getting 8 clusters, and the plot is the following (Click plot to zoom)
 
 | Figure 1A | Figure S2 Left | Figure S2 Right|
 |-----------|----------------|----------------|
 |![unbiased_clustering](https://user-images.githubusercontent.com/88135502/152650953-19434c73-1bfd-4476-832d-51e679edb6c5.png) |  ![BIC](https://user-images.githubusercontent.com/88135502/152650962-65f0f946-c141-492f-94cf-7c5daea78208.png) | ![uncertainty](https://user-images.githubusercontent.com/88135502/152650968-a7186ed1-3281-4f6a-a3e2-729c90bed994.png)|
 
 The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
+
+**Note: Conventionally, PCA is performed before tSNE. If we use `PCA = T` argument on Rtsne, better results may show.**
 
 ### 2.2 Human Study 2
 #### 2.2.1 Load Data
