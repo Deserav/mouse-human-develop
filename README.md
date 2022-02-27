@@ -149,7 +149,7 @@ The expression pattern shown in the figure is equivalent to figure 1e except for
 As mentioned in the previous section, there were many erroneous results. It is presumed that the cause of this is the cumulation of error from each process. 
 
 **1. Initial data is given by TPM matrix.**
-Although Seurat and Monocle support TPM input, preprocessing data with such format seems confounding. We end up duplicating the normalization process. Scaling is problematic as well, since the column sum of a TPM matrix is fixed to 1M. Subsetting cells and genes can result in decrease of column sum, which holds a possibility of changing the scaled value significantly. In addition, Monocle is optimal in using count data, so using TPM data limits downstream analysis.  Functions like `plot_ordering_genes` and `plot_pc_variance_explained` do not work well on TPM data.
+Although Seurat and Monocle support TPM input, preprocessing data with such format is confounding. Normalization within the Seurat and Monocle environment is required for downstream anlysis. TPM input implies that the count matrix is normalized beforehand, which forces us to duplicate the normalization process. Scaling is problematic as well, since the column sum of a TPM matrix is fixed to 1M. Subsetting cells and genes can result in decrease of column sum, which holds a possibility of changing the scaled value significantly. In addition, Monocle is optimal in using count data, so using TPM data limits downstream analysis.  Functions like `plot_ordering_genes` and `plot_pc_variance_explained` do not work well on TPM data.
 
 
 **2. Normalization method is unusual.**
