@@ -36,13 +36,13 @@ Data processing is undergone after loading dataset. The expression matrix should
 We now try to replicate the plots of the paper. Figure S1 shows histograms of total number of reads, fraction of mapped reads, intron/exon ratio, and gene body coverage. Only the total number of reads was replicated because all the data we have is the count matrix.
 ![reads_per_cell](https://user-images.githubusercontent.com/88135502/152650420-3c312f6f-fb7a-4fc9-aedd-fd89c6204a43.png)
 
-For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne package, and model-based hierarchical clustering by mclust package. The goal is to identify 10 clusters by an unbiased method. In other words, we want 10 clusters without any genetic information. However, it is found that the tsne package does not contain a ViSNE function. Thus, tSNE is performed after arcsine transformation. tSNE is performed by the Rtsne package. Unfortunately, the best we could do was getting 8 clusters, and the plot is the following (Click plot to zoom)
+For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne package, and model-based hierarchical clustering by mclust package. The goal is to identify 10 clusters by an unbiased method. In other words, we want 10 clusters without any genetic information. However, it is found that the tsne package does not contain a ViSNE function. Thus, tSNE is performed after arcsine transformation. tSNE is performed by the Rtsne package. We got 10 clusters, and the plot is the following (Click plot to zoom)
 
 | Figure 1A | Figure S2 Left | Figure S2 Right|
 |-----------|----------------|----------------|
-|![unbiased_clustering](https://user-images.githubusercontent.com/88135502/152650953-19434c73-1bfd-4476-832d-51e679edb6c5.png) |  ![BIC](https://user-images.githubusercontent.com/88135502/152650962-65f0f946-c141-492f-94cf-7c5daea78208.png) | ![uncertainty](https://user-images.githubusercontent.com/88135502/152650968-a7186ed1-3281-4f6a-a3e2-729c90bed994.png)|
+|![plot2_3d_tsne_2 27 2022](https://user-images.githubusercontent.com/88135502/155884032-8f607d36-952b-46d8-ad1d-95afc812b956.png)|  ![BIC](https://user-images.githubusercontent.com/88135502/152650962-65f0f946-c141-492f-94cf-7c5daea78208.png) |![plot1_uncertainty_2 27 2022](https://user-images.githubusercontent.com/88135502/155884037-b7942322-6c2f-4a8a-9af6-0638d72df68e.png)|
 
-The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
+The paper does not exactly clearly notify how each respective graph was generated, so this was the closest we could get.
 
 **Note: Conventionally, PCA is performed before tSNE. However, on ViSNE, PCA is not performed (Amir et al. 2013).**
 
