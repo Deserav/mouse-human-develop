@@ -44,7 +44,7 @@ For Figure S2 and Figure 1A, the expression matrix undergoes ViSNE by the tsne p
 
 The paper does not exactly notify how each respective graph was generated, so this was the closest we could get.
 
-**Note: Conventionally, PCA is performed before tSNE. If we use `PCA = T` argument on Rtsne, better results may show.**
+**Note: Conventionally, PCA is performed before tSNE. However, on ViSNE, PCA is not performed (Amir et al. 2013).**
 
 ### 2.2 Human Study 2
 #### 2.2.1 Load Data
